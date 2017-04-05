@@ -10,6 +10,16 @@ namespace MngYourContracr.Service
             : base(context)
         {
         }
+        public void createEmployee(string user_id)
+        {
+            var employee = new Employee
+            {
+                EmployeeId = user_id
+            };
+            this.Insert(employee);
+            this.Save();
+
+        }
 
         private List<Task> getTasks(String employeeId)
         {

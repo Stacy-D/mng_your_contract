@@ -6,7 +6,7 @@ using System.Net;
 using System.Web.Mvc;
 using MngYourContracr.Service;
 using MngYourContracr.MngYourContractDatabase;
-
+using Microsoft.AspNet.Identity;
 namespace MngYourContracr.Controllers
 {
     [Authorize(Roles = "Manager")]
@@ -25,15 +25,8 @@ namespace MngYourContracr.Controllers
         public ActionResult Index()
         {
             UserService us = new UserService(context);
-
-            // For the first run
-            string id = "2";
-            var mq = from m in this.context.Managers where (m.ManagerId == id) select m;
-            Manager manager = mq.First();
-
-            manager.User = UserService.FindUserById(id);
-            ViewBag.Manager = manager;
-            return View();
+            Manager manager = getManager(User.Identity.GetUserId());
+            return View(manager);
         }
 
         //
@@ -292,5 +285,22 @@ namespace MngYourContracr.Controllers
             }
             return RedirectToAction("ProjectTasks?projectId=" + projectId);
         }
+    
+    private Manager getManager(string userId)
+    {
+        using (var context = new CompanyContext())
+        {
+            var managers = from manager in context.Managers
+                            where manager.ManagerId == userId
+                            select manager;
+
+            foreach (var e in managers)
+            {
+                return e;
+            }
+        }
+
+        return null;
     }
+}
 }

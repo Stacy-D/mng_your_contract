@@ -15,14 +15,23 @@ namespace MngYourContracr.Service
             : base(context)
         {
         }
+        public void createManager(string user_id)
+        {
+            var manager = new Manager
+            {
+                ManagerId = user_id
+            };
+            this.Insert(manager);
+            this.Save();
 
+        }
         public void CreateProject(Project proj, String managerId)
         {
             proj.ManagerId = managerId;
             project.Insert(proj);
-            //Manager m = GetByID(managerId);
-            // m.Projects.Add(proj);
-            // Update(m);
+            Manager m = GetByID(managerId);
+            m.Projects.Add(proj);
+            Update(m);
         }
 
         public void CreateTeam(List<Employee> employees, String managerId, List<Project> projects = null)
