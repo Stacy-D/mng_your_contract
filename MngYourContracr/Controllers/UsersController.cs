@@ -8,7 +8,7 @@ using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using MngYourContracr.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
-
+using MngYourContracr.MngYourContractDatabase;
 namespace MngYourContracr.Controllers
 {
     [Authorize]
@@ -20,7 +20,7 @@ namespace MngYourContracr.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var user = User.Identity;
-                ApplicationDbContext context = new ApplicationDbContext();
+                CompanyContext context = new CompanyContext();
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
                 var s = UserManager.GetRoles(user.GetUserId());
                 if (s[0].ToString() == "Admin")

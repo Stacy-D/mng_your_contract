@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MngYourContracr.Models;
+using MngYourContracr.MngYourContractDatabase;
 
 namespace MngYourContracr.Controllers
 {
@@ -17,10 +18,10 @@ namespace MngYourContracr.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        ApplicationDbContext context;
+        CompanyContext context;
         public AccountController()
         {
-            context = new ApplicationDbContext();
+            context = new CompanyContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -154,7 +155,7 @@ namespace MngYourContracr.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

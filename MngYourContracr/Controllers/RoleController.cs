@@ -6,17 +6,18 @@ using System.Web.Mvc;
 using MngYourContracr.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
+using MngYourContracr.MngYourContractDatabase;
 
 namespace MngYourContracr.Controllers
 {
     [Authorize]
     public class RoleController : Controller
     {
-        ApplicationDbContext context;
+        CompanyContext context;
 
         public RoleController()
         {
-            context = new ApplicationDbContext();
+            context = new CompanyContext();
         }
 
         /// <summary>
