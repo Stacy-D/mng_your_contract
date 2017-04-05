@@ -40,10 +40,6 @@ namespace MngYourContracr.Controllers
             {
                 var user = User.Identity;
                 ViewBag.Name = user.Name;
-                //	ApplicationDbContext context = new ApplicationDbContext();
-                //	var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-
-                //var s=	UserManager.GetRoles(user.GetUserId());
                 ViewBag.displayMenu = "No";
 
                 if (isAdminUser())
