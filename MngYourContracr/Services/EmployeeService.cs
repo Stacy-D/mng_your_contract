@@ -6,6 +6,7 @@ namespace MngYourContracr.Service
 {
     public class EmployeeService : Service<Employee>
     {
+        public UserService userService;
         public EmployeeService(CompanyContext context)
             : base(context)
         {

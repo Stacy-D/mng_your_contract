@@ -33,11 +33,8 @@ namespace MngYourContracr.Controllers
         // GET: /Manager/Projects
         public ActionResult Projects()
         {
-            string id = "2";
-            var mq = from m in this.context.Managers where (m.ManagerId == id) select m;
-            Manager manager = mq.First();
-
-            manager.User = UserService.FindUserById(id);
+            Manager manager = getManager(User.Identity.GetUserId());
+            manager.User = UserService.FindUserById(manager.ManagerId);
             ViewBag.Manager = manager;
             var projects = context.Projects.ToList();
             projects.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
@@ -48,12 +45,10 @@ namespace MngYourContracr.Controllers
         // GET: /Manager/CurrentProjects
         public ActionResult CurrentProjects()
         {
-            string id = "2";
-            var mq = from m in this.context.Managers where (m.ManagerId == id) select m;
-            Manager manager = mq.First();
-            manager.User = UserService.FindUserById(id);
+            Manager manager = getManager(User.Identity.GetUserId());
+            manager.User = UserService.FindUserById(manager.ManagerId);
             ViewBag.Manager = manager;
-            var currProj = (from cp in this.context.Projects where cp.ManagerId == id && DateTime.Compare(cp.Deadline, cp.EndDate) <= 0 select cp).ToList();
+            var currProj = (from cp in this.context.Projects where cp.ManagerId == manager.ManagerId && DateTime.Compare(cp.Deadline, cp.EndDate) <= 0 select cp).ToList();
             currProj.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
             return View(currProj);
         }
@@ -62,12 +57,10 @@ namespace MngYourContracr.Controllers
         // GET: /Manager/CompletedProjects
         public ActionResult CompletedProjects()
         {
-            string id = "2";
-            var mq = from m in this.context.Managers where (m.ManagerId == id) select m;
-            Manager manager = mq.First();
-            manager.User = UserService.FindUserById(id);
+            Manager manager = getManager(User.Identity.GetUserId());
+            manager.User = UserService.FindUserById(manager.ManagerId);
             ViewBag.Manager = manager;
-            var currProj = (from cp in this.context.Projects where cp.ManagerId == id && DateTime.Compare(cp.Deadline, cp.EndDate) > 0 select cp).ToList();
+            var currProj = (from cp in this.context.Projects where cp.ManagerId == manager.ManagerId && DateTime.Compare(cp.Deadline, cp.EndDate) > 0 select cp).ToList();
             currProj.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
             return View(currProj);
         }
@@ -119,12 +112,10 @@ namespace MngYourContracr.Controllers
         // GET: /Manager/Teams
         public ActionResult Teams()
         {
-            string id = "2";
-            var tq = from team in this.context.Teams where team.ManagerId == id select team;
-            var mq = from m in this.context.Managers where (m.ManagerId == id) select m;
-            Manager manager = mq.First();
+            Manager manager = getManager(User.Identity.GetUserId());
+            var tq = from team in this.context.Teams where team.ManagerId == manager.ManagerId select team;
 
-            manager.User = UserService.FindUserById(id);
+            manager.User = UserService.FindUserById(manager.ManagerId);
             ViewBag.Manager = manager;
             return View(tq.ToList());
         }

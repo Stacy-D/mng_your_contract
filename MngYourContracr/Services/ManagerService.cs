@@ -10,10 +10,12 @@ namespace MngYourContracr.Service
         public Service<Employee> employee;
         public Service<Project> project;
         public Service<Team> team;
+        public UserService userService;
 
         public ManagerService(CompanyContext context)
             : base(context)
         {
+            userService = new UserService(context);
         }
         public void createManager(string user_id)
         {
