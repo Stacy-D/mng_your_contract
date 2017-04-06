@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using MngYourContracr.Service;
 using MngYourContracr.MngYourContractDatabase;
 using Microsoft.AspNet.Identity;
+using MngYourContracr.Models;
 namespace MngYourContracr.Controllers
 {
     [Authorize(Roles = "Manager")]
@@ -27,7 +28,8 @@ namespace MngYourContracr.Controllers
         public ActionResult Index()
         { 
             Manager manager = managerService.GetByID(User.Identity.GetUserId());
-            // accessible from view  - manager.ManagerId
+            ApplicationUser user = UserService.FindUserById(User.Identity.GetUserId());
+            manager.User = user;
             return View(manager);
         }
 

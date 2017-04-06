@@ -5,19 +5,29 @@ using System.Linq;
 using System.Web.Mvc;
 using MngYourContracr.Models;
 using MngYourContracr.MngYourContractDatabase;
+using MngYourContracr.Service;
 
 namespace MngYourContracr.Controllers
 {
     [Authorize(Roles = "Employee")]
     public class EmployeeController : Controller
     {
+        private CompanyContext context = new CompanyContext();
+        private UserService UserService;
+        private EmployeeService employeeService;
+        public EmployeeController()
+        {
+            UserService = new UserService(context);
+            employeeService = new EmployeeService(context);
+        }
         //
         // GET: /Employee/
         public ActionResult Index()
         {
-            ViewBag.User = LoggedInUser();
-            ViewBag.Employee = GetEmployee(ViewBag.User);
-            return View();
+            Employee employee = employeeService.GetByID(User.Identity.GetUserId());
+            ApplicationUser user = UserService.FindUserById(User.Identity.GetUserId());
+            employee.User = user;
+            return View(employee);
         }
 
         public ActionResult CurrentTasks()

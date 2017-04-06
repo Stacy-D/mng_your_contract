@@ -317,6 +317,10 @@
     <Content Include="Views\Client\Index.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Employee\Completed.cshtml" />
+    <Content Include="Views\Employee\CompletedTasks.cshtml" />
+    <Content Include="Views\Employee\CurrentTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
