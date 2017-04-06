@@ -2,5 +2,22 @@
 
 @{
     ViewBag.Title = "Manager";
+    var allProjectsLinkTxt = "All projects";
+    if(1==1){
+        allProjectsLinkTxt = "My projects";    
+    }
 }
+
 <h2>Manager</h2>
+
+<h3>Hello @Model.User.FirstName   @Model.User.LastName
+        </h3>
+
+
+<a href="/Manager/Projects">@allProjectsLinkTxt</a>
+
+<a href="/Manager/Teams">My teams</a>
+
+<a href="/Manager/CurrentProjects">Current projects</a>
+<a href="/Manager/CompletedProjects">Completed projects</a>
+

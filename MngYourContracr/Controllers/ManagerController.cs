@@ -206,53 +206,7 @@ namespace MngYourContracr.Controllers
 
         //
         // GET: /Manager/CreateProject
-        public ActionResult CreateProject()
-        {
-            List<SelectListItem> items = new List<SelectListItem>();
-
-            var clients = (from e in context.Clients select e).ToList();
-            clients.ForEach(e => e.User = UserService.FindUserById(e.ClientId));
-
-            clients.ForEach(m => items.Add(new SelectListItem { Text = m.User.FirstName + " " + m.User.LastName, Value = m.ClientId }));
-            items.First().Selected = true;
-
-            ViewBag.ClientId = items;
-
-            items = new List<SelectListItem>();
-
-            var managers = (from m in context.Managers select m).ToList();
-            managers.ForEach(m => m.User = UserService.FindUserById(m.ManagerId));
-
-            managers.ForEach(m => items.Add(new SelectListItem { Text = m.User.FirstName + " " + m.User.LastName, Value = m.ManagerId }));
-            items.First().Selected = true;
-
-            ViewBag.ManagerId = items;
-
-            items = new List<SelectListItem>();
-
-            var teams = (from m in context.Teams select m).ToList();
-
-            teams.ForEach(m => items.Add(new SelectListItem { Text = m.TeamId, Value = m.TeamId }));
-            items.First().Selected = true;
-
-            ViewBag.TeamId = items;
-
-            return View();
-        }
-
-        //
-        // POST: /Manager/CreateProject
-        [HttpPost]
-        public ActionResult CreateProject(Project project)
-        {
-            if (ModelState.IsValid)
-            {
-                context.Projects.Add(project);
-                context.SaveChanges();
-                return RedirectToAction("Projects");
-            }
-            return View(project);
-        }
+       
 
         public ActionResult CloseProject([Bind(Include = "projectId")]string projectId)
         {

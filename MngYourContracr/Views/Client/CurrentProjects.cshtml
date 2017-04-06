@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MngYourContracr.MngYourContractDatabase.Project>
+
+@{
+    ViewBag.Title = "CurrentProjects";
+}
+
+<h2>CurrentProjects</h2>
+
+<table class="table">
+    <thead>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Status</th>
+    <th>Deadline</th>
+    <th>Start Date</th>
+    
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Deadline)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

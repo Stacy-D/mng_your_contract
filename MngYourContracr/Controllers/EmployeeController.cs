@@ -39,14 +39,13 @@ namespace MngYourContracr.Controllers
         {
             return Tasks(true);
         }
-
         public ActionResult Completed(string id)
         {
-            var user = LoggedInUser();
+            var employee = employeeService.GetByID(User.Identity.GetUserId());
             using (var context = new CompanyContext())
             {
                 var tasks = from task in context.Tasks
-                            where task.EmployeeId == user.Id && task.TaskId == id
+                            where task.EmployeeId == employee.EmployeeId && task.TaskId == id
                             select task;
                 foreach (var t in tasks)
                 {
@@ -60,54 +59,18 @@ namespace MngYourContracr.Controllers
 
         private ActionResult Tasks(bool completed)
         {
-            var employee = LoggedInUser();
+            var employee = employeeService.GetByID(User.Identity.GetUserId());
             IEnumerable<Task> tasks;
-
             using (var context = new CompanyContext())
             {
                 tasks = from task in context.Tasks
-                        where task.EmployeeId == employee.Id && (completed ? task.Status == "COMPLETED" : task.Status == "OPENED")
+                        where task.EmployeeId == employee.EmployeeId && (completed ? task.Status == "COMPLETED" : task.Status == "OPENED")
                         orderby task.Deadline
                         select task;
                 tasks = tasks.ToList();
             }
 
             return View(tasks);
-        }
-
-        private ApplicationUser LoggedInUser()
-        {
-            var userId = User.Identity.GetUserId();
-            using (var context = new CompanyContext())
-            {
-                var users = from u in context.Users
-                            where u.Id == userId
-                            select u;
-
-                foreach (var u in users)
-                {
-                    return u;
-                }
-            }
-
-            return null;
-        }
-
-        private Employee GetEmployee(ApplicationUser user)
-        {
-            using (var context = new CompanyContext())
-            {
-                var employees = from employee in context.Employees
-                                where employee.EmployeeId == user.Id
-                                select employee;
-
-                foreach (var e in employees)
-                {
-                    return e;
-                }
-            }
-
-            return null;
         }
     }
 }

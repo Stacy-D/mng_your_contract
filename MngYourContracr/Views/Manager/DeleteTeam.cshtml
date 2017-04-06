@@ -1,0 +1,32 @@
+﻿@model MngYourContracr.MngYourContractDatabase.Team
+
+@{
+    ViewBag.Title = "DeleteTeam";
+}
+
+<h2>Delete a Team</h2>
+
+<h3>Do you really want to delete this team?</h3>
+<div>
+    <h4>Team Info</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Manager.ManagerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Manager.ManagerId)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Teams")
+        </div>
+    }
+</div>
