@@ -8,7 +8,7 @@ using MngYourContracr.Models;
 
 namespace MngYourContracr.MngYourContractDatabase
 {
-    public class SeedDB : DropCreateDatabaseAlways<CompanyContext> //DropCreateDatabaseIfModelChanges<CompanyContext>
+    public class SeedDB : DropCreateDatabaseIfModelChanges<CompanyContext> //DropCreateDatabaseIfModelChanges<CompanyContext>
     {
         public static UserManager<ApplicationUser> UserManager
         {

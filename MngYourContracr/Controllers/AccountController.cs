@@ -19,11 +19,12 @@ namespace MngYourContracr.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private CommonService commonService = new CommonService();
+        private CommonService commonService;
         CompanyContext context;
         public AccountController()
         {
             context = new CompanyContext();
+            commonService  = new CommonService(context);
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -80,9 +81,11 @@ namespace MngYourContracr.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+          
             switch (result)
             {
                 case SignInStatus.Success:
+                 
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -163,8 +166,8 @@ namespace MngYourContracr.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     //Assign Role to user Here   
-                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
-                //    commonService.connectUserAndPosition(model.UserRoles.First(Role)., user.Id); need to connect it
+                    var res = await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+                    commonService.connectUserAndPosition(model.UserRoles,user.Id);
                     return RedirectToAction("Index", "Users");
                 }
                 ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
