@@ -4,11 +4,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@{
+    ViewBag.Title = "Client";
+}
 
-<div>
-    <h4>Client</h4>
-    <hr />
-    <dl class="dl-horizontal">
-    </dl>
-</div>
+<h2>Client</h2>
+<h3>Greetings @ViewBag.User.FirstName @ViewBag.User.LastName!</h3>
+<h4>Role: @ViewBag.User.Description</h4>
+
+<h3><a href="/Client/CurrentProjects">Current projects</a></h3>
+<h3><a href="/Client/CompletedProjects">Completed projects</a></h3>
