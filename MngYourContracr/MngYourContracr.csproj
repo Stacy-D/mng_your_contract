@@ -334,6 +334,7 @@
     <Content Include="Views\Manager\Projects.cshtml" />
     <Content Include="Views\Manager\ProjectTasks.cshtml" />
     <Content Include="Views\Manager\Teams.cshtml" />
+    <Content Include="Views\Manager\CreateProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
