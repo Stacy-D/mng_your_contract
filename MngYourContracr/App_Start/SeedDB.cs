@@ -224,12 +224,12 @@ namespace MngYourContracr.MngYourContractDatabase
         {
             var teams = new List<Team> {
      new Team {
-      TeamId = "1",
+      TeamId = 1,
        ManagerId = "2",
        Employees = employees
      },
      new Team {
-      TeamId = "2",
+      TeamId = 2,
        ManagerId = "2",
        Employees = anotherEmployees
      }
@@ -241,7 +241,7 @@ namespace MngYourContracr.MngYourContractDatabase
         {
             tasks = new List<Task> {
      new Task {
-      TaskId = "1",
+      TaskId = 1,
        Name = "Optimize DB for client list",
        Description = "Zarah v karmane!",
        Status = "OPENED",
@@ -251,7 +251,7 @@ namespace MngYourContracr.MngYourContractDatabase
        EmployeeId = "1"
      },
      new Task {
-      TaskId = "2",
+      TaskId = 2,
        Name = "Dynamic list for viewers. Track online",
        Description = "Diplom v karmane!",
        Status = "CLOSED",
@@ -261,14 +261,14 @@ namespace MngYourContracr.MngYourContractDatabase
        EmployeeId = "1"
      },
      new Task {
-      TaskId = "3",
+      TaskId = 3,
+       StartDate = DateTime.Now,
+       EndDate = DateTime.MaxValue,
+       EmployeeId = "4",
        Name = "Fill all lists",
        Description = "Proshe prostogo!",
        Status = "OPENED",
        Deadline = new DateTime(2014, 05, 25),
-       StartDate = DateTime.Now,
-       EndDate = DateTime.MaxValue,
-       EmployeeId = "4"
      },
     };
             return tasks;
@@ -279,10 +279,10 @@ namespace MngYourContracr.MngYourContractDatabase
         {
             var projects = new List<Project> {
      new Project {
-      ProjectId = "1",
+      ProjectId = 1,
        ClientId = "3",
        ManagerId = "2",
-       TeamId = "1",
+       TeamId = 1,
        Tasks = tasks,
        Name = "KMA zarah coming",
        Status = "OPENED",
