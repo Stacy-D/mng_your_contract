@@ -335,11 +335,16 @@
     <Content Include="Views\Manager\ProjectTasks.cshtml" />
     <Content Include="Views\Manager\Teams.cshtml" />
     <Content Include="Views\Manager\CreateProject.cshtml" />
-    <Content Include="Views\Team\Details.cshtml" />
-    <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\Task\Create.cshtml" />
+    <Content Include="Views\Task\Delete.cshtml" />
+    <Content Include="Views\Task\Details.cshtml" />
+    <Content Include="Views\Task\Edit.cshtml" />
+    <Content Include="Views\Task\Index.cshtml" />
     <Content Include="Views\Team\Create.cshtml" />
-    <Content Include="Views\Team\Edit.cshtml" />
     <Content Include="Views\Team\Delete.cshtml" />
+    <Content Include="Views\Team\Details.cshtml" />
+    <Content Include="Views\Team\Edit.cshtml" />
+    <Content Include="Views\Team\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
