@@ -14,6 +14,18 @@
 }
 else
 {
-    <h2>  Welcome <strong>@ViewBag.Name</strong> :) .We will add user module soon </h2>
+    <h2>  Welcome <strong>@ViewBag.Name</strong> :) !</h2>
+    if (ViewBag.role == "Client")
+    {
+        <li>@Html.ActionLink("Go to your client page", "Index", "Client")</li>
+    }
+    else if (ViewBag.displayMenu == "Manager")
+    {
+        <li>@Html.ActionLink("Go to your manager profile", "Index", "Manager")</li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("Go to your employee profile", "Index", "Employee")</li>
+    }
 }
-
+<h2>Here you can read some news, when we add them;)</h2>
