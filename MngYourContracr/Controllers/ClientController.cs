@@ -51,7 +51,7 @@ namespace MngYourContracr.Controllers
                                select project;
                 foreach (var t in projects)
                 {
-                    t.EndDate = DateTime.Now;
+                    t.EndDate = DateTime.Today;
                     t.Status = "COMPLETED";
                 }
                 context.SaveChanges();
@@ -99,6 +99,8 @@ namespace MngYourContracr.Controllers
         {
             if (ModelState.IsValid)
             {
+                project.Status = "OPENED";
+                project.StartDate = DateTime.Today;
                 project.ClientId = User.Identity.GetUserId();
                 context.Projects.Add(project);
                 context.SaveChanges();

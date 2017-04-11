@@ -16,11 +16,17 @@ namespace MngYourContracr.Controllers
         private CompanyContext context = new CompanyContext();
         private UserService UserService;
         private ManagerService managerService;
+        private TeamService teamService;
+        private TaskService taskService;
+        private ProjectService projectService;
 
         public ManagerController()
         {
             UserService = new UserService(context);
             managerService = new ManagerService(context);
+            teamService = new TeamService(context);
+            taskService = new TaskService(context);
+            projectService = new ProjectService(context);
         }
 
         //
@@ -52,7 +58,7 @@ namespace MngYourContracr.Controllers
             Manager manager = managerService.GetByID(User.Identity.GetUserId());
             manager.User = UserService.FindUserById(manager.ManagerId);
             ViewBag.Manager = manager;
-            var currProj = (from cp in this.context.Projects where cp.ManagerId == manager.ManagerId && DateTime.Compare(cp.Deadline, cp.EndDate) <= 0 select cp).ToList();
+            var currProj = (from cp in this.context.Projects where cp.ManagerId == manager.ManagerId && Nullable.Compare(cp.Deadline, cp.EndDate) <= 0 select cp).ToList();
             currProj.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
             return View(currProj);
         }
@@ -64,22 +70,22 @@ namespace MngYourContracr.Controllers
             Manager manager = managerService.GetByID(User.Identity.GetUserId());
             manager.User = UserService.FindUserById(manager.ManagerId);
             ViewBag.Manager = manager;
-            var currProj = (from cp in this.context.Projects where cp.ManagerId == manager.ManagerId && DateTime.Compare(cp.Deadline, cp.EndDate) > 0 select cp).ToList();
+            var currProj = (from cp in this.context.Projects where cp.ManagerId == manager.ManagerId && Nullable.Compare(cp.Deadline, cp.EndDate) > 0 select cp).ToList();
             currProj.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
             return View(currProj);
         }
 
         //
         // GET: /Manager/ProjectTasks
-        public ActionResult ProjectTasks([Bind(Include = "projectId")] string projectId)
+        public ActionResult ProjectTasks([Bind(Include = "projectId")] int projectId)
         {
-            var project = context.Projects.Find(projectId);
+            var project = projectService.GetByID(projectId);
             ViewBag.ProjectId = projectId;
             return View(project.Tasks);
         }
 
         // GET: /Task/Create
-        public ActionResult CreateTask([Bind(Include = "projectId")] string projectId)
+        public ActionResult CreateTask([Bind(Include = "projectId")] int projectId)
         {
             List<SelectListItem> items = new List<SelectListItem>();
 
@@ -99,11 +105,13 @@ namespace MngYourContracr.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateTask([Bind(Include = "TaskId,Name,Description,Status,Deadline,StartDate,EndDate,EmployeeId")] Task task,
-            [Bind(Include = "projectId")] string projectId)
+            [Bind(Include = "projectId")] int projectId)
         {
             if (ModelState.IsValid)
             {
-                var project = context.Projects.Find(projectId);
+                var project = projectService.GetByID(projectId);
+                task.Status = "OPENED";
+                task.StartDate = DateTime.Today;
                 project.Tasks.Add(task);
                 context.SaveChanges();
                 return RedirectToAction("Index");
@@ -167,13 +175,9 @@ namespace MngYourContracr.Controllers
         // delete team
 
         // GET: /Team/Delete/5
-        public ActionResult DeleteTeam(string id)
+        public ActionResult DeleteTeam(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Team team = context.Teams.Find(id);
+            Team team = teamService.GetByID(id);
             if (team == null)
             {
                 return HttpNotFound();
@@ -184,9 +188,9 @@ namespace MngYourContracr.Controllers
         // POST: /Team/Delete/5
         [HttpPost, ActionName("DeleteTeam")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Team team = context.Teams.Find(id);
+            Team team = teamService.GetByID(id);
             try
             {
                 team.Employees = null;
@@ -235,39 +239,42 @@ namespace MngYourContracr.Controllers
         {
             if (ModelState.IsValid)
             {
-                context.Projects.Add(project);
-                context.SaveChanges();
+                project.Status = "OPENED";
+                project.StartDate =  DateTime.Today;
+                projectService.Insert(project);
                 return RedirectToAction("Projects");
             }
             return View(project);
         }
 
         //Close Project
-        public ActionResult CloseProject([Bind(Include = "projectId")]string projectId)
+        public ActionResult CloseProject([Bind(Include = "projectId")]int projectId)
         {
             if (ModelState.IsValid)
             {
-                var project = context.Projects.Find(projectId);
+                var project = projectService.GetByID(projectId);
                 project.Status = "RESOLVED";
-                project.EndDate = DateTime.Now;
+                project.EndDate = DateTime.Today;
                 context.Entry(project).State = EntityState.Modified;
                 context.SaveChanges();
             }
             return RedirectToAction("Projects");
         }
 
-        public ActionResult CloseProjectTask([Bind(Include = "taskId")] string taskId)
+        public ActionResult CloseProjectTask([Bind(Include = "taskId")] int taskId)
         {
-            var projectId = "1";
             if (ModelState.IsValid)
             {
-                var task = context.Tasks.Find(taskId);
+                var task = taskService.GetByID(taskId);
+                var projectId = task.Project.ProjectId;
                 task.Status = "Closed";
-                task.EndDate = DateTime.Now;
+                task.EndDate = DateTime.Today;
                 context.Entry(task).State = EntityState.Modified;
                 context.SaveChanges();
+                return RedirectToAction("ProjectTasks?projectId=" + projectId);
             }
-            return RedirectToAction("ProjectTasks?projectId=" + projectId);
+            return RedirectToAction("Projects");
+           
         }
 }
 }

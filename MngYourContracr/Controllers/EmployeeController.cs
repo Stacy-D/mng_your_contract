@@ -49,7 +49,7 @@ namespace MngYourContracr.Controllers
                             select task;
                 foreach (var t in tasks)
                 {
-                    t.EndDate = DateTime.Now;
+                    t.EndDate = DateTime.Today;
                     t.Status = "COMPLETED";
                 }
                 context.SaveChanges();

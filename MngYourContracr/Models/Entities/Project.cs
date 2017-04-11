@@ -57,7 +57,7 @@ namespace MngYourContracr.MngYourContractDatabase
         /// <summary>
         /// Gets or sets the team's unique id
         /// </summary>
-        public int TeamId { get; set; }
+        public int? TeamId { get; set; }
 
         /// <summary>
         /// Gets or sets the team the project is assigned to
@@ -74,14 +74,15 @@ namespace MngYourContracr.MngYourContractDatabase
         /// </summary>
         public DateTime Deadline { get; set; }
 
+
         /// <summary>
         /// Gets or sets the project's start date
         /// </summary>
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the project's end date
         /// </summary>
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }

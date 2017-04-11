@@ -39,12 +39,12 @@
         /// <summary>
         /// Gets or sets the start date
         /// </summary>
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the date of completion
         /// </summary>
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// Gets or sets unique id of employee the task is assigned to
@@ -55,5 +55,7 @@
         /// Gets or sets the employee the task is assigned to
         /// </summary>
         public virtual Employee Employee { get; set; }
+
+        public virtual Project Project { get; set; }
     }
 }

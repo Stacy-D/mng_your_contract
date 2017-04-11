@@ -11,10 +11,12 @@ namespace MngYourContract.Controllers
     {
         private CompanyContext db = new CompanyContext();
         private UserService UserService;
+        private TeamService teamService;
 
         public TeamController()
         {
             UserService = new UserService(db);
+            teamService = new TeamService(db);
         }
 
         // GET: /Team/
@@ -24,13 +26,9 @@ namespace MngYourContract.Controllers
         }
 
         // GET: /Team/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Team team = db.Teams.Find(id);
+            Team team = teamService.GetByID(id);
 
             if (team == null)
             {
@@ -63,13 +61,9 @@ namespace MngYourContract.Controllers
         }
 
         // GET: /Team/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Team team = db.Teams.Find(id);
+            Team team = teamService.GetByID(id);
             if (team == null)
             {
                 return HttpNotFound();
@@ -92,13 +86,9 @@ namespace MngYourContract.Controllers
         }
 
         // GET: /Team/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Team team = db.Teams.Find(id);
+            Team team = teamService.GetByID(id);
             if (team == null)
             {
                 return HttpNotFound();
@@ -111,7 +101,7 @@ namespace MngYourContract.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Team team = db.Teams.Find(id);
+            Team team = teamService.GetByID(id);
             db.Teams.Remove(team);
             db.SaveChanges();
             return RedirectToAction("Index");

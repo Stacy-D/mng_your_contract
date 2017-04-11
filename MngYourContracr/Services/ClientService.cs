@@ -18,7 +18,7 @@ namespace MngYourContracr.Service
         {
             List<Project> listToReturn = new List<Project>();
             var queryCompletedProjects = from proj in project.Get()
-                                         where proj.ClientId == clientId && proj.EndDate < DateTime.Now
+                                         where proj.ClientId == clientId && proj.EndDate < DateTime.Today
                                          select proj;
             foreach (Project p in queryCompletedProjects)
             {
@@ -31,7 +31,7 @@ namespace MngYourContracr.Service
         {
             List<Project> listToReturn = new List<Project>();
             var queryCompletedProjects = from proj in project.Get()
-                                         where proj.ClientId == clientId && proj.EndDate > DateTime.Now
+                                         where proj.ClientId == clientId && proj.EndDate > DateTime.Today
                                          select proj;
             foreach (Project p in queryCompletedProjects)
             {

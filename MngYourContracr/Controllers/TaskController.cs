@@ -3,13 +3,18 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using MngYourContracr.MngYourContractDatabase;
+using MngYourContracr.Service;
 
 namespace MngYourContracr.Controllers
 {
     public class TaskController : Controller
     {
         private CompanyContext db = new CompanyContext();
+        private TaskService taskService;
 
+        public TaskController() {
+            taskService = new TaskService(db);
+        }
         // GET: /Task/
         public ActionResult Index()
         {
@@ -17,13 +22,10 @@ namespace MngYourContracr.Controllers
         }
 
         // GET: /Task/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Task task = db.Tasks.Find(id);
+
+            Task task = taskService.GetByID(id);
             if (task == null)
             {
                 return HttpNotFound();
@@ -53,13 +55,10 @@ namespace MngYourContracr.Controllers
         }
 
         // GET: /Task/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Task task = db.Tasks.Find(id);
+
+            Task task = taskService.GetByID(id);
             if (task == null)
             {
                 return HttpNotFound();
@@ -82,13 +81,10 @@ namespace MngYourContracr.Controllers
         }
 
         // GET: /Task/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Task task = db.Tasks.Find(id);
+
+            Task task = taskService.GetByID(id);
             if (task == null)
             {
                 return HttpNotFound();
@@ -101,7 +97,7 @@ namespace MngYourContracr.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Task task = db.Tasks.Find(id);
+            Task task = taskService.GetByID(id);
             db.Tasks.Remove(task);
             db.SaveChanges();
             return RedirectToAction("Index");
