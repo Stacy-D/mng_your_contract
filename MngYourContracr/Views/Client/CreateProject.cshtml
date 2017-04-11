@@ -4,10 +4,10 @@
     ViewBag.Title = "CreateProject";
 }
 
-<h2>Create a New Project</h2>
+<h2>Ready to sign a new deal?</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm(new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     
@@ -18,50 +18,54 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model=>model.Name,"This is the name of the deal. Choose it, please.", new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name)
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Name)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Description, "Describe this project in more details", new { @class = "col-md-2 control-label" })
+            
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description)
+                @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Description)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.budget, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.budget, "What's your budget for this project?", new { @class = "col-md-2 control-label" })
+            
             <div class="col-md-10">
-                @Html.EditorFor(model => model.budget)
+                @Html.TextBoxFor(model => model.budget, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.budget)
             </div>
         </div>
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ManagerId, "ManagerId", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ManagerId, " Our managers are waiting to help you. Choose one from them", new { @class = "col-md-2 control-label" })
+           
             <div class="col-md-10">
-                @Html.DropDownList("ManagerId")
+                @Html.DropDownList("ManagerId",null, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ManagerId)
             </div>
         </div>
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Deadline, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Deadline, "What about the deadline?", new { @class = "col-md-2 control-label" })
+            
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Deadline)
+                @Html.TextBoxFor(model => model.Deadline, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Deadline)
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="CreateProject" class="btn btn-default" />
+                <input type="submit" value="Sign" class="btn btn-default" />
             </div>
         </div>
     </div>

@@ -48,7 +48,7 @@ namespace MngYourContracr.Controllers
             ViewBag.Manager = manager;
             var projects = context.Projects.ToList();
             projects.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
-            return View(context.Projects.ToList());
+            return View(projects);
         }
 
         //
@@ -58,6 +58,7 @@ namespace MngYourContracr.Controllers
             Manager manager = managerService.GetByID(User.Identity.GetUserId());
             manager.User = UserService.FindUserById(manager.ManagerId);
             ViewBag.Manager = manager;
+            //TODO: change this! Current projects are not working correctly
             var currProj = (from cp in this.context.Projects where cp.ManagerId == manager.ManagerId && Nullable.Compare(cp.Deadline, cp.EndDate) <= 0 select cp).ToList();
             currProj.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
             return View(currProj);
@@ -70,6 +71,7 @@ namespace MngYourContracr.Controllers
             Manager manager = managerService.GetByID(User.Identity.GetUserId());
             manager.User = UserService.FindUserById(manager.ManagerId);
             ViewBag.Manager = manager;
+            // todo CHANGE THIS TOO. Show Completed projects, which have status Completed/resolved
             var currProj = (from cp in this.context.Projects where cp.ManagerId == manager.ManagerId && Nullable.Compare(cp.Deadline, cp.EndDate) > 0 select cp).ToList();
             currProj.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
             return View(currProj);
@@ -109,6 +111,7 @@ namespace MngYourContracr.Controllers
         {
             if (ModelState.IsValid)
             {
+                // DO NOT TOUCH THIS!
                 var project = projectService.GetByID(projectId);
                 task.Status = "OPENED";
                 task.StartDate = DateTime.Today;
@@ -146,11 +149,10 @@ namespace MngYourContracr.Controllers
 
             var employee = (from e in context.Employees select e).ToList();
             employee.ForEach(e => e.User = UserService.FindUserById(e.EmployeeId));
-            MultiSelectList multieEmployeeList = new MultiSelectList(employee);//, "EmployeeId", "Employee.User.FirstName", null);
+            MultiSelectList multieEmployeeList = new MultiSelectList(employee);
 
             ViewBag.ManagerId = items;
             ViewBag.Employees = employee;
-            //ViewBag.Countrieslist = multieEmployeeList;//GetCountries(null);
 
             return View();
         }

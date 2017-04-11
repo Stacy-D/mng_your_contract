@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MngYourContracr.MngYourContractDatabase.Client>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowAllClients</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ClientId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ClientId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ClientId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
