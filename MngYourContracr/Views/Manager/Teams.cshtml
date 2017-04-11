@@ -18,18 +18,23 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <a href="/Team/Details/@item.TeamId">Team №@item.TeamId</a>
-        </td>
-        <td>
-            @ViewBag.Manager.User.FirstName @ViewBag.Manager.User.LastName
-        </td>    
-        <td>
-            @Html.ActionLink("Delete", "DeleteTeam", new { id=item.TeamId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="/Team/Details/@item.TeamId">Team №@item.TeamId</a>
+            </td>
+            <td>
+                @ViewBag.Manager.User.FirstName @ViewBag.Manager.User.LastName
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteTeam", new { id = item.TeamId })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

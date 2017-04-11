@@ -1,4 +1,6 @@
-﻿@model  MngYourContracr.MngYourContractDatabase.Team
+
+@model MngYourContracr.MngYourContractDatabase.Team
+
 
 @{
     ViewBag.Title = "Delete";
@@ -21,7 +23,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

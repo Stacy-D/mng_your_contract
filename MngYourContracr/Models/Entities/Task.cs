@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// Represents a task assigned to the team member
@@ -12,7 +13,8 @@
         /// Gets or sets the task's unique id
         /// </summary>
         [Key]
-        public string TaskId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int TaskId { get; set; }
 
         /// <summary>
         ///  Gets or sets the task's name

@@ -39,7 +39,7 @@ namespace MngYourContracr.Controllers
         {
             return Tasks(true);
         }
-        public ActionResult Completed(string id)
+        public ActionResult Completed(int id)
         {
             var employee = employeeService.GetByID(User.Identity.GetUserId());
             using (var context = new CompanyContext())

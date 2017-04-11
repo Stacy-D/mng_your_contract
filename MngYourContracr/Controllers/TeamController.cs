@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using MngYourContracr.Service;
 using MngYourContracr.MngYourContractDatabase;
 
-namespace MngYourContracr.Controllers
+namespace MngYourContract.Controllers
 {
     public class TeamController : Controller
     {
