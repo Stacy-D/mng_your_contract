@@ -22,6 +22,12 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.budget)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.outgoings)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>Tasks</th>
@@ -55,6 +61,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.budget)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.outgoings)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)

@@ -101,6 +101,8 @@ namespace MngYourContracr.Controllers
             {
                 project.Status = "OPENED";
                 project.StartDate = DateTime.Today;
+                project.income = project.budget;
+                project.outgoings = 0;
                 project.ClientId = User.Identity.GetUserId();
                 context.Projects.Add(project);
                 context.SaveChanges();

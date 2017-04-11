@@ -84,5 +84,10 @@ namespace MngYourContracr.MngYourContractDatabase
         /// Gets or sets the project's end date
         /// </summary>
         public DateTime? EndDate { get; set; }
+
+        public decimal budget { get; set; }
+        public decimal income { get; set; }
+        public decimal outgoings { get; set; }
+
     }
 }
