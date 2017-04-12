@@ -32,7 +32,7 @@ namespace MngYourContracr.Controllers
         //
         // GET: /Manager/
         public ActionResult Index()
-        { 
+        {
             Manager manager = managerService.GetByID(User.Identity.GetUserId());
             ApplicationUser user = UserService.FindUserById(User.Identity.GetUserId());
             manager.User = user;
@@ -48,6 +48,11 @@ namespace MngYourContracr.Controllers
             ViewBag.Manager = manager;
             var projects = context.Projects.ToList();
             projects.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
+            List<SelectListItem> items = new List<SelectListItem>();
+            var teams = (from m in context.Teams select m).ToList();
+            teams.ForEach(m => items.Add(new SelectListItem { Text = m.TeamId.ToString(), Value = m.TeamId.ToString() }));
+            items.First().Selected = true;
+            ViewBag.TeamId = items;
             return View(projects);
         }
 
@@ -139,19 +144,11 @@ namespace MngYourContracr.Controllers
         // GET: /Manager/CreateTeam
         public ActionResult CreateTeam()
         {
-            List<SelectListItem> items = new List<SelectListItem>();
-
-            var managers = (from m in context.Managers select m).ToList();
-            managers.ForEach(m => m.User = UserService.FindUserById(m.ManagerId));
-
-            managers.ForEach(m => items.Add(new SelectListItem { Text = m.User.FirstName + " " + m.User.LastName, Value = m.ManagerId }));
-            items.First().Selected = true;
 
             var employee = (from e in context.Employees select e).ToList();
             employee.ForEach(e => e.User = UserService.FindUserById(e.EmployeeId));
             MultiSelectList multieEmployeeList = new MultiSelectList(employee);
 
-            ViewBag.ManagerId = items;
             ViewBag.Employees = employee;
 
             return View();
@@ -160,10 +157,11 @@ namespace MngYourContracr.Controllers
         // POST: /Task/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateTeam([Bind(Include = "TeamId,ManagerId")] Team team, [Bind(Include = "employeeIdList")] List<string> employeeIdList)
+        public ActionResult CreateTeam([Bind(Include = "TeamId")] Team team, [Bind(Include = "employeeIdList")] List<string> employeeIdList)
         {
             if (ModelState.IsValid)
             {
+                team.ManagerId = User.Identity.GetUserId();
                 team.Employees = new List<Employee>();
                 employeeIdList.ForEach(e => team.Employees.Add(context.Employees.Find(e)));
                 context.Teams.Add(team);
@@ -242,7 +240,7 @@ namespace MngYourContracr.Controllers
             if (ModelState.IsValid)
             {
                 project.Status = "OPENED";
-                project.StartDate =  DateTime.Today;
+                project.StartDate = DateTime.Today;
                 projectService.Insert(project);
                 return RedirectToAction("Projects");
             }
@@ -276,7 +274,36 @@ namespace MngYourContracr.Controllers
                 return RedirectToAction("ProjectTasks?projectId=" + projectId);
             }
             return RedirectToAction("Projects");
-           
+
         }
-}
+        public ActionResult AcceptProject(int id)
+        {
+            var project = projectService.GetByID(id);
+            List<SelectListItem> items = new List<SelectListItem>();
+            var teams = (from m in context.Teams select m).ToList();
+            teams.ForEach(m => items.Add(new SelectListItem { Text = m.TeamId.ToString(), Value = m.TeamId.ToString() }));
+            items.First().Selected = true;
+            ViewBag.TeamId = items;
+            ViewBag.Name = project.Name;
+            return View(project);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AcceptProject(
+    [Bind(Include = "TeamId, ProjectId")]
+         Project project)
+        {
+            this.projectService.assignTeam(project.TeamId.Value, project.ProjectId);
+            return RedirectToAction("Projects");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PayEmployees(
+[Bind(Include = "ProjectId, outgoings")]
+         Project project)
+        {
+            this.projectService.updateBudget(project.outgoings, project.ProjectId);
+            return RedirectToAction("Projects");
+        }
+    }
 }
