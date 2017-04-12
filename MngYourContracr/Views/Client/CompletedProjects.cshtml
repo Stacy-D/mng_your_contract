@@ -26,6 +26,8 @@ th {
     <thead>
     <th>Name</th>
     <th>Description</th>
+    <th>Budget</th>
+    <th>Outgoings</th>
     <th>Deadline</th>
     <th>Start Date</th>
     <th>End Date</th>
@@ -41,6 +43,12 @@ th {
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.income)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.outgoings)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Deadline)
