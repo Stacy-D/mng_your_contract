@@ -222,7 +222,7 @@ namespace MngYourContracr.Controllers
             ViewBag.ManagerId = items;
             items = new List<SelectListItem>();
             var teams = (from m in context.Teams select m).ToList();
-            teams.ForEach(m => items.Add(new SelectListItem { Text = m.TeamId, Value = m.TeamId }));
+            teams.ForEach(m => items.Add(new SelectListItem { Text = m.TeamId.ToString(), Value = m.TeamId.ToString() }));
             items.First().Selected = true;
             ViewBag.TeamId = items;
             return View();

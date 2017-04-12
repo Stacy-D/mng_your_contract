@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// Represents a team of employees working on the same set of projects
@@ -12,7 +13,8 @@
         ///  Gets or sets the team's unique id
         /// </summary>
         [Key]
-        public string TeamId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int TeamId { get; set; }
 
         /// <summary>
         /// Gets or sets the id of the team's manager

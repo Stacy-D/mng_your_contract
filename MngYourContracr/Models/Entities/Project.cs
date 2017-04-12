@@ -4,6 +4,7 @@ namespace MngYourContracr.MngYourContractDatabase
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// Represents a project detailed in agreement between a client and a manager
@@ -14,7 +15,8 @@ namespace MngYourContracr.MngYourContractDatabase
         /// Gets or sets the project's unique id
         /// </summary>
         [Key]
-        public string ProjectId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ProjectId { get; set; }
 
         /// <summary>
         /// Gets or sets the project's name
@@ -55,7 +57,7 @@ namespace MngYourContracr.MngYourContractDatabase
         /// <summary>
         /// Gets or sets the team's unique id
         /// </summary>
-        public string TeamId { get; set; }
+        public int TeamId { get; set; }
 
         /// <summary>
         /// Gets or sets the team the project is assigned to

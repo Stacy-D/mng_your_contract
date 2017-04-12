@@ -1,4 +1,4 @@
-﻿@model MngYourContracr.MngYourContractDatabase.Team
+@model MngYourContracr.MngYourContractDatabase.Team
 
 @{
     ViewBag.Title = "Create";
@@ -7,9 +7,16 @@
 <h2>Create a New Team</h2>
 
 
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
 
     <div class="form-horizontal">
         <h4>Team Info</h4>
