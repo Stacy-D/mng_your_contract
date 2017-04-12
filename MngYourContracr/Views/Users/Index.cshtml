@@ -19,7 +19,7 @@ else
     {
         <li>@Html.ActionLink("Go to your client page", "Index", "Client")</li>
     }
-    else if (ViewBag.displayMenu == "Manager")
+    else if (ViewBag.role == "Manager")
     {
         <li>@Html.ActionLink("Go to your manager profile", "Index", "Manager")</li>
     }

@@ -1,9 +1,8 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title</h2>
 
-<br />
+@*<br />
 <h1><b>MngYourContract Company</b></h1><br /><br />
 
 <address>
@@ -18,6 +17,34 @@
     <strong>Marketing email:</strong> Marketing@example.com</a>
 </address>
 
-<br/>
+<br/>*@
 
-<h5>@ViewBag.Message</h5>
+
+<div class="contact">
+    <div class="container">
+        <h4>@ViewBag.Message</h4>
+        <div class="contact-form">
+            <div class="col-md-4 contact-form-left">
+                <h4>CONTACT INFO</h4>
+                <p>
+                   Our manager: Anastasia Danilochkina
+                </p>
+                <h5>Address</h5>
+                <p>Hryhoriy Skovoroda St. 2</p>
+                <p>Telephone: +380 000 000 000</p>
+                <a href="mailto:example@email.com">Support@example.com </a>
+            </div>
+            <div class="col-md-8 contact-form-right">
+                <h4>CONTACT FORM</h4>
+                <form>
+                    <input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
+                    <input type="email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                    <input type="text" value="Telephone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Telephone';}" required="">
+                    <textarea type="text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+           
+        </div>
+    </div>
+</div>
