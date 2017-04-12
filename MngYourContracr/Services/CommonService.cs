@@ -22,6 +22,7 @@ namespace MngYourContracr.Service
             switch (role) {
                 case "Manager":
                     managerService.createManager(userId);
+                    employeeService.createEmployee(userId);
                     break;
                 case "Employee":
                     employeeService.createEmployee(userId);

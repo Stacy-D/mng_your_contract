@@ -36,6 +36,9 @@ namespace MngYourContracr.Controllers
             Manager manager = managerService.GetByID(User.Identity.GetUserId());
             ApplicationUser user = UserService.FindUserById(User.Identity.GetUserId());
             manager.User = user;
+            ViewBag.CountProjects = manager.Projects.Count;
+            ViewBag.CountOpened = manager.Projects.Where(p => p.Status == "OPENED").Count();
+            ViewBag.CountTeams = manager.Teams.Count;
             return View(manager);
         }
 
@@ -285,6 +288,12 @@ namespace MngYourContracr.Controllers
             items.First().Selected = true;
             ViewBag.TeamId = items;
             ViewBag.Name = project.Name;
+            return View(project);
+        }
+        public ActionResult PayEmployees(int id) {
+            var project = projectService.GetByID(id);
+            ViewBag.Name = project.Name;
+            ViewBag.outgoings = project.outgoings;
             return View(project);
         }
         [HttpPost]
