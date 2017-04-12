@@ -14,7 +14,8 @@ th, td {
     background-color: white;
 }
 
-tr:nth-child(even){background-color: #f2f2f2}
+tr:nth-child(even){
+    background-color: #f2f2f2}
 
 th {
     background-color: #333;
@@ -26,6 +27,8 @@ th {
     <thead>
     <th>Name</th>
     <th>Description</th>
+    <th>Budget</th>
+    <th>Outgoings</th>
     <th>Deadline</th>
     <th>Start Date</th>
     <th>End Date</th>
@@ -41,6 +44,12 @@ th {
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.income)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.outgoings)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Deadline)
