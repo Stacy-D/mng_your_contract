@@ -3,10 +3,30 @@
 @{
     ViewBag.Title = "Our client";
 }
+<style>
+    .button {
+        background-color: #333;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    .button:hover{
+                     text-decoration:none;
+                     background-color: 	#90EE90;
+                 }
 
+</style>
 <h2>Welcome home to MngYourContract client page</h2>
-<h3>Greetings @Model.User.FirstName @Model.User.LastName!!!</h3>
+<h3>Greetings @Model.User.FirstName @Model.User.LastName!</h3>
 <h4>We hope you will accomplish something great today</h4>
-<h3><a href="/Client/CurrentProjects">Current projects</a></h3>
-<h3><a href="/Client/CompletedProjects">Completed projects</a></h3>
-<h3><a href="/Client/CreateProject">Sign new contract</a></h3>
+<div>
+    <a class="button" href="/Client/CurrentProjects">Current projects</a>
+    <a class="button" href="/Client/CompletedProjects">Completed projects</a>
+    <a class="button" href="/Client/CreateProject">Sign new contract</a>
+</div>
