@@ -18,6 +18,8 @@
     <tbody>
         @foreach (var item in Model)
         {
+            if (item.Status == "OPENED")
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -37,6 +39,7 @@
                 </td>
                 
             </tr>
+            }
         }
     </tbody>
 </table>

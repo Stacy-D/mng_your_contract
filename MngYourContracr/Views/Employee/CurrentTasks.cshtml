@@ -18,6 +18,8 @@
     <tbody>
         @foreach (var item in Model)
         {
+            if (item.Status == "OPENED")
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -38,6 +40,7 @@
                     @Html.ActionLink("Done!", "Completed", new { id = item.TaskId })
                 </td>
             </tr>
+            }
         }
     </tbody>
 </table>

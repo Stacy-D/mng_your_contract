@@ -17,6 +17,8 @@
     <tbody>
         @foreach (var item in Model)
         {
+            if (item.Status == "COMPLETED")
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -34,6 +36,7 @@
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
             </tr>
+            }
         }
     </tbody>
 </table>
