@@ -49,7 +49,7 @@ namespace MngYourContracr.Controllers
             Manager manager = managerService.GetByID(User.Identity.GetUserId());
             manager.User = UserService.FindUserById(manager.ManagerId);
             ViewBag.Manager = manager;
-            var projects = context.Projects.ToList();
+            var projects = manager.Projects;
             projects.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
             List<SelectListItem> items = new List<SelectListItem>();
             var teams = (from m in context.Teams select m).ToList();
@@ -67,7 +67,7 @@ namespace MngYourContracr.Controllers
             manager.User = UserService.FindUserById(manager.ManagerId);
             ViewBag.Manager = manager;
             //TODO: change this! Current projects are not working correctly
-            var currProj = (from cp in this.context.Projects where cp.ManagerId == manager.ManagerId && Nullable.Compare(cp.Deadline, cp.EndDate) <= 0 select cp).ToList();
+            var currProj = manager.Projects.Where(p => p.Status == "OPENED").ToList();
             currProj.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
             return View(currProj);
         }
@@ -80,7 +80,7 @@ namespace MngYourContracr.Controllers
             manager.User = UserService.FindUserById(manager.ManagerId);
             ViewBag.Manager = manager;
             // todo CHANGE THIS TOO. Show Completed projects, which have status Completed/resolved
-            var currProj = (from cp in this.context.Projects where cp.ManagerId == manager.ManagerId && Nullable.Compare(cp.Deadline, cp.EndDate) > 0 select cp).ToList();
+            var currProj = manager.Projects.Where(p => p.Status == "RESOLVED").ToList();
             currProj.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
             return View(currProj);
         }
