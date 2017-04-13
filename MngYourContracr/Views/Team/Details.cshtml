@@ -1,37 +1,33 @@
 @model MngYourContracr.MngYourContractDatabase.Team
-
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Team Info</h4>
-    <hr />
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Manager
-        </dt>
-
-        <dd>
-            @Model.Manager.User.FirstName @Model.Manager.User.LastName
-        </dd>
-
-        <dt>
-            Employees
-        </dt>
-
-        @foreach (var item in Model.Employees)
-        {
-            <dd>
-                @item.User.FirstName @item.User.LastName
-            </dd>
-        }
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Back to List", "Teams", "Manager")
-</p>
+<div class="single">
+    <div class="container">
+        <h2>Details</h2>
+        <div>
+            <h4>Team Info</h4>
+            <hr />
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    Manager
+                </dt>
+                <dd>
+                    @Model.Manager.User.FirstName @Model.Manager.User.LastName
+                </dd>
+                <dt>
+                    Employees
+                </dt>
+                @foreach (var item in Model.Employees)
+                {
+                    <dd>
+                        @item.User.FirstName @item.User.LastName
+                    </dd>
+                }
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Back to List", "Teams", "Manager")
+        </p>
+</div></div>

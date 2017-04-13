@@ -1,10 +1,10 @@
 ﻿@model MngYourContracr.MngYourContractDatabase.Manager
-
 @{
     ViewBag.Title = "Manager";
     var allProjectsLinkTxt = "All projects";
-    if(1==1){
-        allProjectsLinkTxt = "My projects";    
+    if (1 == 1)
+    {
+        allProjectsLinkTxt = "My projects";
     }
 }
 <style>
@@ -26,18 +26,16 @@
             background-color: #90EE90;
         }
 </style>
-
-<h2>Manager</h2>
-
-<h3>Hello @Model.User.FirstName   @Model.User.LastName
+<div class="single">
+    <div class="container">
+        <h2>Manager</h2>
+        <h3>
+            Hello @Model.User.FirstName   @Model.User.LastName
         </h3>
-<h2> You have @ViewBag.CountOpened  projects</h2>
-<h2>You have # <strong>@ViewBag.CountTeams</strong> teams</h2>
 
-<a class="button" href="/Manager/Projects">@allProjectsLinkTxt</a>
-
-<a class="button" href="/Manager/Teams">My teams</a>
-
-<a class="button" href="/Manager/CurrentProjects">Current projects</a>
-<a class="button" href="/Manager/CompletedProjects">Completed projects</a>
-
+        <a class="button" href="/Manager/Projects">@allProjectsLinkTxt</a>
+        <a class="button" href="/Manager/Teams">My teams</a>
+        <a class="button" href="/Manager/CurrentProjects">Current projects</a>
+        <a class="button" href="/Manager/CompletedProjects">Completed projects</a>
+        </div>
+</div>

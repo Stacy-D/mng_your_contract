@@ -2,12 +2,14 @@
 @{
     ViewBag.Title = "Add New Role";
 }
-<h2>Add New User Role:</h2>
+<div class="single">
+    <div class="container">
+        <h2>Add New User Role:</h2>
+        @using (Html.BeginForm())
+        {
+            <p> Enter User Role Name:</p>
 
-@using (Html.BeginForm())
-{
-    <p> Enter User Role Name:</p>
-
-    @Html.EditorFor(m => m.Name)
-    <input type="submit" value="Create Role" />
-}
+            @Html.EditorFor(m => m.Name)
+            <input type="submit" value="Create Role" />
+        }
+        </div></div>

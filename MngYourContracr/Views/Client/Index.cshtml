@@ -1,5 +1,4 @@
 ﻿@model MngYourContracr.MngYourContractDatabase.Client
-
 @{
     ViewBag.Title = "Our client";
 }
@@ -16,17 +15,20 @@
         margin: 4px 2px;
         cursor: pointer;
     }
-    .button:hover{
-                     text-decoration:none;
-                     background-color: 	#90EE90;
-                 }
 
+        .button:hover {
+            text-decoration: none;
+            background-color: #90EE90;
+        }
 </style>
-<h2>Welcome home to MngYourContract client page</h2>
-<h3>Greetings @Model.User.FirstName @Model.User.LastName!</h3>
-<h4>We hope you will accomplish something great today</h4>
-<div>
-    <a class="button" href="/Client/CurrentProjects">Current projects</a>
-    <a class="button" href="/Client/CompletedProjects">Completed projects</a>
-    <a class="button" href="/Client/CreateProject">Sign new contract</a>
-</div>
+<div class="single">
+    <div class="container">
+        <h2>Welcome home to MngYourContract client page</h2>
+        <h3>Greetings @Model.User.FirstName @Model.User.LastName!</h3>
+        <h4>We hope you will accomplish something great today</h4>
+        <div>
+            <a class="button" href="/Client/CurrentProjects">Current projects</a>
+            <a class="button" href="/Client/CompletedProjects">Completed projects</a>
+            <a class="button" href="/Client/CreateProject">Sign new contract</a>
+        </div>
+        </div></div>

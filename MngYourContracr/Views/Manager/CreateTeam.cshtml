@@ -1,49 +1,54 @@
 ﻿@model MngYourContracr.MngYourContractDatabase.Team
-
 @{
     ViewBag.Title = "CreateTeam";
 }
+<div class="single">
+    <div class="container">
+        <h2>Create a New Team</h2>
 
-<h2>Create a New Team</h2>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Team Info</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ManagerId, "ManagerId", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.ManagerId, @ViewBag.ManagerId as List<SelectListItem>)
+                        @Html.ValidationMessageFor(model => model.ManagerId)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Employees, "Employees", new { @class = "control-label col-md-2" })
+
+                    <div class="col-md-10">
+                        @*@Html.ListBoxFor(model => model.Employees,  ViewBag.Employees as MultiSelectList)*@
+                        <select name="employeeIdList" multiple="multiple">
+                            @foreach (var item in ViewBag.Employees)
+                            {
+                                <option value="@item.EmployeeId">@item.User.FirstName @item.User.LastName</option>
+                            }
+                        </select>
+                    </div>
+
+                </div>
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Team Info</h4>
-        <hr />
-        @Html.ValidationSummary(true)
-
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.Employees, "Employees", new { @class = "control-label col-md-2" })
-                        
-            <div class="col-md-10">
-                @*@Html.ListBoxFor(model => model.Employees,  ViewBag.Employees as MultiSelectList)*@
-                <select name="employeeIdList" multiple="multiple">
-                    @foreach (var item in ViewBag.Employees)
-                    {
-                        <option value="@item.EmployeeId">@item.User.FirstName @item.User.LastName</option>
-                    }
-                </select>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
             </div>
-                
+        }
+        <div>
+            @Html.ActionLink("Back to List", "Teams")
         </div>
-        
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Teams")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+        </div></div>

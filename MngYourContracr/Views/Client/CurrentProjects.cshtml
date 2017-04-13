@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<MngYourContracr.MngYourContractDatabase.Project>
-
 @{
     ViewBag.Title = "CurrentProjects";
 }
-
 <style>
     table {
         border-collapse: collapse;
@@ -25,55 +23,54 @@
         color: white;
     }
 </style>
+<div class="single">
+    <div class="container">
+        <h2>CurrentProjects</h2>
+        <table class="table">
+            <thead>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Budget</th>
+            <th>Outgoings</th>
+            <th>Deadline</th>
+            <th>Start Date</th>
 
-<h2>CurrentProjects</h2>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.Status == "OPENED")
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
 
-<table class="table">
-    <thead>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Status</th>
-    <th>Budget</th>
-    <th>Outgoings</th>
-    <th>Deadline</th>
-    <th>Start Date</th>
-    
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            if (item.Status == "OPENED")
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-               
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.income)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.outgoings)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Deadline)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                
-            </tr>
-            }
-        }
-    </tbody>
-</table>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.income)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.outgoings)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Deadline)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div></div></div>
