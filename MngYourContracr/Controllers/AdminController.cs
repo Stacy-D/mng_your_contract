@@ -44,16 +44,16 @@ namespace MngYourContracr.Controllers
         {
             var clients = clientService.Get().ToList();
             clients.ForEach(c => c.User = UserService.FindUserById(c.ClientId));
-
-
             return View(clients);
         }
+
         public ActionResult ShowAllManagers()
         {
             var managers = managerService.Get().ToList();
             managers.ForEach(c => c.User = UserService.FindUserById(c.ManagerId));
             return View(managers);
         }
+
         public ActionResult ShowAllEmployees()
         {
             var employees = employeeService.Get().ToList();
