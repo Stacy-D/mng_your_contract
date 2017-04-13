@@ -61,7 +61,10 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
+    if (item.Status == "RESOLVED")
+    {
     <tr>
         <td>
             @item.Client.User.FirstName @item.Client.User.LastName
@@ -94,8 +97,8 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
     </tr>
+    }
 }
-
 </table>
 
 <div>

@@ -69,6 +69,8 @@
 
     @foreach (var item in Model)
     {
+        if (item.Status == "OPENED")
+        {
         <tr>
             <td>
                 @item.Client.User.FirstName @item.Client.User.LastName
@@ -116,6 +118,7 @@
                 }
             </td>
         </tr>
+        }
     }
 
 </table>
