@@ -91,7 +91,10 @@ namespace MngYourContracr.Controllers
         {
             var project = projectService.GetByID(projectId);
             ViewBag.ProjectId = projectId;
-            return View(project.Tasks);
+            ViewBag.status = project.Status;
+            var tasks = project.Tasks.ToList();
+            tasks.ForEach(c => c.Employee.User = UserService.FindUserById(c.EmployeeId));
+            return View(tasks);
         }
 
         // GET: /Task/Create
@@ -221,17 +224,6 @@ namespace MngYourContracr.Controllers
             clients.ForEach(m => items.Add(new SelectListItem { Text = m.User.FirstName + " " + m.User.LastName, Value = m.ClientId }));
             items.First().Selected = true;
             ViewBag.ClientId = items;
-            items = new List<SelectListItem>();
-            var managers = (from m in context.Managers select m).ToList();
-            managers.ForEach(m => m.User = UserService.FindUserById(m.ManagerId));
-            managers.ForEach(m => items.Add(new SelectListItem { Text = m.User.FirstName + " " + m.User.LastName, Value = m.ManagerId }));
-            items.First().Selected = true;
-            ViewBag.ManagerId = items;
-            items = new List<SelectListItem>();
-            var teams = (from m in context.Teams select m).ToList();
-            teams.ForEach(m => items.Add(new SelectListItem { Text = m.TeamId.ToString(), Value = m.TeamId.ToString() }));
-            items.First().Selected = true;
-            ViewBag.TeamId = items;
             return View();
         }
 
@@ -242,10 +234,14 @@ namespace MngYourContracr.Controllers
         {
             if (ModelState.IsValid)
             {
+                project.ManagerId = User.Identity.GetUserId();
                 project.Status = "OPENED";
                 project.StartDate = DateTime.Today;
-                projectService.Insert(project);
-                return RedirectToAction("Projects");
+                project.income = project.budget;
+                project.outgoings = 0;
+                context.Projects.Add(project);
+                context.SaveChanges();
+                return RedirectToAction("CurrentProjects");
             }
             return View(project);
         }

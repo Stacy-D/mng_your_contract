@@ -1,9 +1,5 @@
 ﻿@model IEnumerable<MngYourContracr.MngYourContractDatabase.Client>
 
-@{
-    Layout = null;
-}
-
 <style>
     table {
         border-collapse: collapse;
@@ -30,7 +26,7 @@
 
 
         <th>
-            @Html.DisplayNameFor(model => model.ClientId)
+            Client
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Projects)
@@ -41,16 +37,18 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ClientId)
+                @Html.DisplayFor(modelItem => item.User.FirstName)
+                @Html.DisplayFor(modelItem => item.User.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Projects)
+                @foreach(var proj in item.Projects){
+                    <p>@proj.Name</p>
+                }
             </td>
             
         </tr>
     }
 
 </table>
-           </div></div>
-</body>
-</html>
+           

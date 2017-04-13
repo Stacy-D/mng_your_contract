@@ -5,9 +5,10 @@
 <div class="single">
     <div class="container">
         <h2>Project Tasks</h2>
+    @if (ViewBag.status == "OPENED") {
         <p>
             @Html.ActionLink("Create New", "CreateTask", new { projectId = @ViewBag.ProjectId })
-        </p>
+        </p>}
         <table class="table">
             <tr>
                 <th>

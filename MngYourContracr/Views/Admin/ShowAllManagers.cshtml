@@ -1,9 +1,5 @@
 ﻿@model IEnumerable<MngYourContracr.MngYourContractDatabase.Manager>
 
-@{
-    Layout = null;
-}
-
 <style>
     table {
         border-collapse: collapse;
@@ -44,7 +40,8 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ManagerId)
+                @Html.DisplayFor(modelItem => item.User.FirstName)
+                @Html.DisplayFor(modelItem => item.User.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Projects)

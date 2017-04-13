@@ -33,9 +33,6 @@
             Client
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Manager.ManagerId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
@@ -76,9 +73,6 @@
                 @item.Client.User.FirstName @item.Client.User.LastName
             </td>
             <td>
-                @ViewBag.Manager.User.FirstName  @ViewBag.Manager.User.LastName
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
@@ -97,8 +91,16 @@
                 <a href="/Manager/ProjectTasks?projectId=@item.ProjectId">Tasks</a>
             </td>
             <td>
-                <a href="/Team/Details/@item.TeamId">Team №@item.TeamId</a>
+                @if (item.TeamId != null)
+                {
+                    <a href="/Team/Details/@item.TeamId">Team №@item.TeamId</a>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("AcceptProject", "Manager", new { id=item.ProjectId})'"> Assign team</button>
+                }
             </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Deadline)
             </td>
