@@ -49,12 +49,14 @@ namespace MngYourContracr.Controllers
 
             return View(clients);
         }
+
         public ActionResult ShowAllManagers()
         {
             var managers = managerService.Get().ToList();
             managers.ForEach(c => c.User = UserService.FindUserById(c.ManagerId));
             return View(managers);
         }
+
         public ActionResult ShowAllEmployees()
         {
             var employees = employeeService.Get().ToList();
