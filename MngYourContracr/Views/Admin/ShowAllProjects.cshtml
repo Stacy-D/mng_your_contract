@@ -4,6 +4,28 @@
     Layout = null;
 }
 
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+        background-color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    th {
+        background-color: #333;
+        color: white;
+    }
+</style>
+
 <!DOCTYPE html>
 
 <html>
@@ -68,13 +90,23 @@
                             @Html.DisplayFor(modelItem => item.Status)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ClientId)
+                            @Html.DisplayFor(modelItem => item.Client.User.FirstName)
+                            @Html.DisplayFor(modelItem => item.Client.User.LastName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ManagerId)
+                            @Html.DisplayFor(modelItem => item.Manager.User.FirstName)
+                            @Html.DisplayFor(modelItem => item.Manager.User.LastName)
                         </td>
                         <td>
+                            @if (item.TeamId == null)
+                            {
+                                
+                            }
+                            else
+                            {
                             @Html.DisplayFor(modelItem => item.TeamId)
+                            }
+                            
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Deadline)

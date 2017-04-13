@@ -34,22 +34,29 @@ namespace MngYourContracr.Controllers
     // GET: Admin
     public ActionResult ShowAllProjects()
         {
-            var projects = projectService.Get();
+            var projects = projectService.Get().ToList();
+            projects.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
+            projects.ForEach(c => c.Manager.User = UserService.FindUserById(c.ManagerId));
+     
             return View(projects);
         }
         public ActionResult ShowAllClients()
         {
-            var clients = clientService.Get();
+            var clients = clientService.Get().ToList();
+            clients.ForEach(c => c.User = UserService.FindUserById(c.ClientId));
             return View(clients);
         }
         public ActionResult ShowAllManagers()
         {
-            var managers = managerService.Get();
+            var managers = managerService.Get().ToList();
+            managers.ForEach(c => c.User = UserService.FindUserById(c.ManagerId));
             return View(managers);
         }
         public ActionResult ShowAllEmployees()
         {
-            var clients = employeeService.Get();
+            var clients = employeeService.Get().ToList();
+            clients.ForEach(c => c.User = UserService.FindUserById(c.EmployeeId));
+
             return View(clients);
         }
     }
