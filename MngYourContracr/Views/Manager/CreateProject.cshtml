@@ -30,16 +30,15 @@
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
-
-
-
         <div class="form-group">
-            @Html.LabelFor(model => model.ManagerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ClientId, "Our managers are waiting to help you. Choose one from them", new { @class = "col-md-2 control-label" })
+
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ManagerId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ManagerId, "", new { @class = "text-danger" })
+                @Html.DropDownList("ClientId", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ClientId)
             </div>
         </div>
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.Deadline, htmlAttributes: new { @class = "control-label col-md-2" })

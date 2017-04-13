@@ -19,6 +19,7 @@ namespace MngYourContracr.Controllers
         private TeamService teamService;
         private TaskService taskService;
         private ProjectService projectService;
+        private ClientService clientService;
 
         public ManagerController()
         {
@@ -27,6 +28,7 @@ namespace MngYourContracr.Controllers
             teamService = new TeamService(context);
             taskService = new TaskService(context);
             projectService = new ProjectService(context);
+            clientService = new ClientService(context);
         }
 
         //
@@ -80,7 +82,8 @@ namespace MngYourContracr.Controllers
             manager.User = UserService.FindUserById(manager.ManagerId);
             ViewBag.Manager = manager;
             // todo CHANGE THIS TOO. Show Completed projects, which have status Completed/resolved
-            var currProj = (from cp in this.context.Projects where cp.ManagerId == manager.ManagerId && Nullable.Compare(cp.Deadline, cp.EndDate) > 0 select cp).ToList();
+            var currProj = (from cp in this.context.Projects
+                            where cp.ManagerId == manager.ManagerId && Nullable.Compare(cp.Deadline, cp.EndDate) > 0 select cp).ToList();
             currProj.ForEach(c => c.Client.User = UserService.FindUserById(c.ClientId));
             return View(currProj);
         }
@@ -216,19 +219,13 @@ namespace MngYourContracr.Controllers
         public ActionResult CreateProject()
         {
             List<SelectListItem> items = new List<SelectListItem>();
-            var clients = (from e in context.Clients select e).ToList();
+            var clients = clientService.Get().ToList();
             clients.ForEach(e => e.User = UserService.FindUserById(e.ClientId));
             clients.ForEach(m => items.Add(new SelectListItem { Text = m.User.FirstName + " " + m.User.LastName, Value = m.ClientId }));
             items.First().Selected = true;
             ViewBag.ClientId = items;
             items = new List<SelectListItem>();
-            var managers = (from m in context.Managers select m).ToList();
-            managers.ForEach(m => m.User = UserService.FindUserById(m.ManagerId));
-            managers.ForEach(m => items.Add(new SelectListItem { Text = m.User.FirstName + " " + m.User.LastName, Value = m.ManagerId }));
-            items.First().Selected = true;
-            ViewBag.ManagerId = items;
-            items = new List<SelectListItem>();
-            var teams = (from m in context.Teams select m).ToList();
+            var teams = managerService.GetByID(User.Identity.GetUserId()).Teams;
             teams.ForEach(m => items.Add(new SelectListItem { Text = m.TeamId.ToString(), Value = m.TeamId.ToString() }));
             items.First().Selected = true;
             ViewBag.TeamId = items;
@@ -242,9 +239,11 @@ namespace MngYourContracr.Controllers
         {
             if (ModelState.IsValid)
             {
+                project.ManagerId = User.Identity.GetUserId();
                 project.Status = "OPENED";
                 project.StartDate = DateTime.Today;
                 projectService.Insert(project);
+                projectService.Save();
                 return RedirectToAction("Projects");
             }
             return View(project);
@@ -283,7 +282,7 @@ namespace MngYourContracr.Controllers
         {
             var project = projectService.GetByID(id);
             List<SelectListItem> items = new List<SelectListItem>();
-            var teams = (from m in context.Teams select m).ToList();
+            var teams = managerService.GetByID(User.Identity.GetUserId()).Teams;
             teams.ForEach(m => items.Add(new SelectListItem { Text = m.TeamId.ToString(), Value = m.TeamId.ToString() }));
             items.First().Selected = true;
             ViewBag.TeamId = items;
