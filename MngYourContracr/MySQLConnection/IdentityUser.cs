@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
 
-namespace AspNet.Identity.MySQL
+namespace MngYourContracr.MySQLConnection
 {
     /// <summary>
     /// Класс ASP.NET Identity
