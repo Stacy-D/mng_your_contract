@@ -5,8 +5,15 @@ using System.Configuration;
 using System.Data;
 using System.Threading;
 
-namespace AspNet.Identity.MySQL
+namespace MngYourContracr.MySQLConnection
 {
+
+
+    ///var logger = new LoggerConfiguration()
+    ///.WriteTo.MySQL("server=127.0.0.1;uid=user;pwd=password;database=diagnostics;")
+    ////.CreateLogger();
+
+    
      /// <summary>
      /// клас що інкапсулює MySQL дб звязок 
      /// і CRUD операції
