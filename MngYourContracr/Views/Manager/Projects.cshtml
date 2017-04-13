@@ -60,6 +60,9 @@
                 </th>
                 <th>
                 </th>
+                <th>
+
+                </th>
 
             </tr>
             @foreach (var item in Model)
@@ -81,7 +84,14 @@
                         <a href="/Manager/ProjectTasks?projectId=@item.ProjectId">Tasks</a>
                     </td>
                     <td>
+                        @if (item.TeamId != null)
+                        {
                         <a href="/Team/Details/@item.TeamId">Team №@item.TeamId</a>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("AcceptProject", "Manager", new { id=item.ProjectId})'"> Assign team</button>
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Deadline)
@@ -97,6 +107,9 @@
                 {
                             <a href="/Manager/CloseProject?projectId=@item.ProjectId">Close Project</a>
                         }
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("PayEmployees", "Manager", new { id=item.ProjectId})'"> Pay employees</button>
                     </td>
                 </tr>
             }
