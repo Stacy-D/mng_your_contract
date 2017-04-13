@@ -54,10 +54,9 @@ namespace MngYourContracr.Controllers
         }
         public ActionResult ShowAllEmployees()
         {
-            var clients = employeeService.Get().ToList();
-            clients.ForEach(c => c.User = UserService.FindUserById(c.EmployeeId));
-
-            return View(clients);
+            var employees = employeeService.Get().ToList();
+            employees.ForEach(c => c.User = UserService.FindUserById(c.EmployeeId));
+            return View(employees);
         }
     }
 }

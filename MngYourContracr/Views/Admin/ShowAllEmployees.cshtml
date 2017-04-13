@@ -1,37 +1,58 @@
 ﻿@model IEnumerable<MngYourContracr.MngYourContractDatabase.Employee>
 
 @{
-    Layout = null;
+    ViewBag.Title = "ShowAllEmployees";
 }
 
-<!DOCTYPE html>
+<h2>ShowAllEmployees</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ShowAllEmployees</title>
-</head>
-<body>
-    <div class="single">
-        <div class="container">
-            
-            <table class="table">
-                <tr>
-                    <th></th>
-                </tr>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.EmployeeId }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId })
-                        </td>
-                    </tr>
-                }
+    th, td {
+        text-align: left;
+        padding: 8px;
+        background-color: white;
+    }
 
-            </table>
-            </div></div>
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    th {
+        background-color: #333;
+        color: white;
+    }
+</style>
+<table class="table">
+    <tr>
+       
+         
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tasks)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tasks)
+            </td>           
+        </tr>
+    }
+
+</table>
+           </div></div>
 </body>
 </html>
+
