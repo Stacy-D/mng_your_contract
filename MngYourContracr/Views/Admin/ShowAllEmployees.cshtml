@@ -12,24 +12,28 @@
     <title>ShowAllEmployees</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.EmployeeId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeId })
-            </td>
-        </tr>
-    }
-    
-    </table>
+    <div class="single">
+        <div class="container">
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+            <table class="table">
+                <tr>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.EmployeeId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            </div></div>
 </body>
 </html>

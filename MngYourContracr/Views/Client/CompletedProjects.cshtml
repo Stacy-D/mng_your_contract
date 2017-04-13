@@ -3,71 +3,74 @@
     ViewBag.Title = "CompletedProjects";
 }
 <style>
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-th, td {
-    text-align: left;
-    padding: 8px;
-    background-color: white;
-}
+    th, td {
+        text-align: left;
+        padding: 8px;
+        background-color: white;
+    }
 
-tr:nth-child(even){
-    background-color: #f2f2f2}
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
-th {
-    background-color: #333;
-    color: white;
-}
+    th {
+        background-color: #333;
+        color: white;
+    }
 </style>
-<h2>CompletedProjects</h2>
-<table class="table">
-    <thead>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Budget</th>
-    <th>Outgoings</th>
-    <th>Deadline</th>
-    <th>Start Date</th>
-    <th>End Date</th>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-          
-            if(item.Status == "RESOLVED") { 
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.income)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.outgoings)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Deadline)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-            </tr>
-            }
-        }
-    </tbody>
-</table>
+<div class="single">
+    <div class="container">
+        <h2>CompletedProjects</h2>
+        <table class="table">
+            <thead>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Budget</th>
+            <th>Outgoings</th>
+            <th>Deadline</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
 
-@ViewBag.count
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+                    if (item.Status == "RESOLVED")
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.income)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.outgoings)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Deadline)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndDate)
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        @ViewBag.count
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+        </div></div>

@@ -1,9 +1,7 @@
 ﻿@model MngYourContracr.MngYourContractDatabase.Employee
-
 @{
     ViewBag.Title = "Employee";
 }
-
 <style>
     .button {
         background-color: #333;
@@ -23,11 +21,13 @@
             background-color: #90EE90;
         }
 </style>
-
-<h2>Welcome home to MngYourContract employee's profile</h2>
-<h3>Greetings @Model.User.FirstName @Model.User.LastName!</h3>
-<h4>We hope you will accomplish something great today</h4>
-<div>
-    <a class="button" href="/Employee/CurrentTasks">Current tasks</a>
-    <a class="button" href="/Employee/CompletedTasks">Completed tasks</a>
-</div>
+<div class="single">
+    <div class="container">
+        <h2>Welcome home to MngYourContract employee's profile</h2>
+        <h3>Greetings @Model.User.FirstName @Model.User.LastName!</h3>
+        <h4>We hope you will accomplish something great today!</h4>
+        <div>
+            <a class="button" href="/Employee/CurrentTasks">Current tasks</a>
+            <a class="button" href="/Employee/CompletedTasks">Completed tasks</a>
+        </div>
+        </div></div>
