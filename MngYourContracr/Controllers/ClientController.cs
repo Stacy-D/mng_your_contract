@@ -7,7 +7,7 @@ using MngYourContracr.Models;
 using MngYourContracr.MngYourContractDatabase;
 using MngYourContracr.Service;
 
-namespace MngYourContracr.Controllers
+namespace MngYourContracr.Controllers 
 {
     [Authorize(Roles = "Client")]
     public class ClientController : Controller
