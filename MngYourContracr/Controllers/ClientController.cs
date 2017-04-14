@@ -24,7 +24,7 @@ namespace MngYourContracr.Controllers
 
         // GET: /Client/
         public ActionResult Index()
-        {
+        {  
             Client client = clientService.GetByID(User.Identity.GetUserId());
             ApplicationUser user = UserService.FindUserById(User.Identity.GetUserId());
             client.User = user;
