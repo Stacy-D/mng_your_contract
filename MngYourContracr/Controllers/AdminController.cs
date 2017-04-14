@@ -44,6 +44,8 @@ namespace MngYourContracr.Controllers
         {
             var clients = clientService.Get().ToList();
             clients.ForEach(c => c.User = UserService.FindUserById(c.ClientId));
+
+
             return View(clients);
         }
         public ActionResult ShowAllManagers()
